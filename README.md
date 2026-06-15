@@ -1,399 +1,251 @@
-# Data-Analytics
-Problem Statement 
-The real estate market is vast and dynamic, with properties being listed, sold, and evaluated every day. Buyers, sellers, and agents often lack accessible tools to monitor trends, pricing, and sales performance. This project aims to build a Real Estate Listings Dashboard that uses SQL and Streamlit to:
-Analyze property listings, agent performance, and sales patterns
-
-
-Provide insights into pricing, time on market, and property types
-
-
-Enable filtering by location, property type, price, and sales agent
-
-
-Display interactive visuals like maps and bar charts for better understanding. 
-
-Business Use Cases
-Assist buyers and investors in making data-informed decisions
-
-
-Help agents track sales performance and property types in demand
-
-
-Understand pricing trends across regions and neighborhoods
-
-
-Monitor time-on-market trends to improve sales strategies
-
-Approach
-1. Data Preparation
-Use the provided datasets:
-Read raw JSON files using Python
-
-
-Flatten nested JSON structures (if any)
-
-
-Standardize date, numeric, and boolean fields
-
-
-Ensure date formats and price/area values are consistent
-
-
-2. Database Creation
-Store data in SQL using normalized relationships
-
-
-Create views and indexes for performance
-
-
-3. Data Analysis with SQL Queries
-Use SQL to generate insights (detailed questions below)
-4. Application Development with Streamlit
-Create a user-friendly dashboard that allows:
-Filtering based on city, property type, agent, and price range
-
-
-Viewing maps of listings and bar/pie charts
-
-
-Displaying SQL query outputs as tables and visuals
-
-
-5. Deployment
-Deploy on a local or cloud server to allow real-time access by stakeholders
-
-Data Flow and Architecture
-Data Storage:
-SQL database with listings, agents, and sales etc. tables
-
-
-Processing Pipeline:
-Use SQL for aggregation, joins, and trend analysis
-
-
-Deployment:
-Streamlit UI for real-time insights and visualizations
-
-Data Flow and Architecture
-Data Storage:
-SQL database with listings, agents, and sales etc. tables
-
-
-Processing Pipeline:
-Use SQL for aggregation, joins, and trend analysis
-
-
-Deployment:
-Streamlit UI for real-time insights and visualizations
-
-Dataset:
-Listings - listings_final_expanded.json
-Property_attributes- property_attributes_final_expanded.json
-Agents - agents_cleaned.json
-Sales - sales_cleaned.csv
-buyers  - buyers_cleaned.json 
-
-Dataset Explanation:
-1️⃣ listings – Property Listings
-Core property-level information
-Column
-Description
-Listing_ID
-Unique ID for the property listing
-City
-City where the property is located
-Property_Type
-Apartment, Villa, Condo, etc.
-Price
-Listed price of the property
-Area_sqft
-Property size in square feet
-Agent_ID
-Foreign key to agents
-Listed_Date
-Date property was listed
-
-Latitude
-
-
-Longitude
-
-
-
-
-2️⃣ property_attributes – Property Attributes
-One-to-one with listings
-Column
-Description
-Attribute_ID
-Unique attribute record
-Listing_ID
-FK → listings
-Bedrooms
-Number of bedrooms
-Bathrooms
-Number of bathrooms
-Floor_Number
-Floor of the property
-Total_Floors
-Total floors in building
-Year_Built
-Year of construction
-Is_Rented
-Rented or not
-Tenant_Count
-Number of tenants
-Furnishing_Status
-Furnished / Semi / Unfurnished
-Metro_Distance_Km
-Distance to metro
-Parking_Available
-Parking availability
-Power_Backup
-Power backup availability
-
-
-3️⃣ agents – Real Estate Agents
-Column
-Description
-Agent_ID
-Unique agent identifier
-Name
-Agent name
-City
-Operating city
-Contact
-Phone/email
-Commission_Rate
-Commission %
-Deals_Closed
-Total deals
-Rating
-Client rating
-Experience_Years
-Years of experience
-Avg_Closing_Days
-Avg deal closing time
-
-
-5️⃣ sales – Property Sales
-Column
-Description
-Sale_ID
-Unique sale ID
-Listing_ID
-FK → listings
-Sale_Date
-Sale date
-Sale_Price
-Final sale price
-Days_On_Market
-Time to sell
-
-
-6️⃣ buyers – Buyer Information
-Column
-Description
-Buyer_ID
-Buyer identifier
-Sale_ID
-FK → sales
-Buyer_Type
-Investor / End User
-Payment_Mode
-Cash / UPI / Bank / Cheque
-Loan_Taken
-Loan taken or not
-Loan_Provider
-Bank name
-Loan_Amount
-Loan amount
-
-
-
-📊 Key SQL Questions & Queries
-📊 Property & Pricing Analysis
-What is the average listing price by city?
-
-
-What is the average price per square foot by property type?
-
-
-How does furnishing status impact property prices?
-
-
-Do properties closer to metro stations command higher prices?
-
-
-Are rented properties priced differently from non-rented ones?
-
-
-How do bedrooms and bathrooms affect pricing?
-
-
-Do properties with parking and power backup sell at higher prices?
-
-
-How does year built influence listing price?
-
-
-Which cities have the highest average property prices?
-
-
-How are properties distributed across price buckets?
-
-⏱️ Sales & Market Performance
-What is the average days on market by city?
-
-
-Which property types sell the fastest?
-
-
-What percentage of properties are sold above listing price?
-
-
-What is the sale-to-list price ratio by city?
-
-
-Which listings took more than 90 days to sell?
-
-
-How does metro distance affect time on market?
-
-
-What is the monthly sales trend?
-
-
-Which properties are currently unsold?
-
-
-🧑‍💼 Agent Performance
-Which agents have closed the most sales?
-
-
-Who are the top agents by total sales revenue?
-
-
-Which agents close deals fastest?
-
-
-Does experience correlate with deals closed?
-
-
-Do agents with higher ratings close deals faster?
-
-
-What is the average commission earned by each agent?
-
-
-Which agents currently have the most active listings?
-
-
-🧍 Buyer & Financing Behavior
-What percentage of buyers are investors vs end users?
-
-
-Which cities have the highest loan uptake rate?
-
-
-What is the average loan amount by buyer type?
-
-
-Which payment mode is most commonly used?
-
-
-Do loan-backed purchases take longer to close?
-
-
-🧮 Streamlit App Features
-
-🎛️ Filters Page
-City – Multi-select (e.g., filter listings in New York, San Francisco, etc.)
-
-Property Type – Dropdown (Apartment, Villa, Condo, etc.)
-
-Price Range – Slider for min and max price
-
-Agent – Searchable dropdown to filter by agent
-
-Date Range – Date picker for Listed Date or Sale Date
-etc.
-
-
-📈 Visualizations Page
-Map: Interactive map of current property listings by city
-
-
-Bar Chart: Number of listings or average prices by city
-
-
-Pie Chart: Distribution of property types
-
-
-Line Chart: Monthly sales and listings trend
-
-
-Table View: SQL query results with pagination and sorting
-etc.
-
-3️⃣ CRUD Operations Page
-Implement complete CRUD (Create, Read, Update, Delete) operations.
-
-
-Apply CRUD functionality to all database tables.
-
-
-Each table must support:
-
-
-View records
-
-
-Add new records
-
-
-Update existing records
-
-
-Delete records
-
-4️⃣ SQL Queries Display Page
-Show all SQL queries in drop-down format.
-
-
-Each drop-down must include:
-
-
-The SQL query
-
-
-The output displayed as a table.
-
-
-Results 
-✔️ A full-featured Streamlit app to explore real estate data
-
-
-✔️ 15+ SQL queries providing insights into price, agent performance, and property types
-
-
-✔️ Visualizations and filters for interactive data exploration
-
-
-✔️ Clean database schema optimized for real-time querying
-
-
-Technical Tags:
-Python, SQL, Streamlit, Real Estate Analytics, Visualization
-
-Deliverables:
-✅ Cleaned CSV data and SQL schema
-
-
-✅ 15+ SQL queries for insights and KPIs
-
-
-✅ Streamlit app with filtering, visuals, and agent/property dashboards
-
-
-✅ Final presentation/report with insights and screenshots
+# 🏠 Real Estate Market Intelligence Platform
+
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![MySQL](https://img.shields.io/badge/MySQL-8.0+-orange.svg)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.0+-red.svg)
+![Plotly](https://img.shields.io/badge/Plotly-5.0+-green.svg)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)
+
+A full-stack **Real Estate Data Analytics Platform** built with Python, MySQL, and Streamlit —
+designed to transform raw property data into actionable business intelligence for real estate
+professionals, investors, and market analysts.
+
+---
+
+## 📌 Project Overview
+
+The real estate market generates vast amounts of transactional data that often goes underutilized.
+This platform bridges the gap between raw data and strategic decision-making by providing:
+
+- **End-to-end data pipeline** from raw JSON/CSV files into a structured MySQL database
+- **25+ analytical SQL queries** covering pricing, agent performance, buyer behavior and market trends
+- **Interactive Streamlit dashboard** with filters, visualizations, CRUD operations and live query execution
+- **Business-ready insights** to support pricing strategy, agent evaluation and investment decisions
+
+---
+
+## 🗄️ Database Schema
+
+The platform is built on **5 relational tables** storing 40,000+ records across the real estate lifecycle:
+
+| Table | Records | Description |
+|---|---|---|
+| `listings` | 20,000+ | Property listings with city, type, price, sqft, location |
+| `property_attributes` | 20,000+ | Bedrooms, bathrooms, furnishing, metro distance, amenities |
+| `sales` | 720 | Closed sales with sale price, date sold, days on market |
+| `buyers` | 20,000 | Buyer profiles, payment mode, loan details |
+| `agents` | 50 | Agent profiles, commission rates, ratings, experience |
+
+### Entity Relationship
+
+agents ──< listings ──< sales
+│
+property_attributes
+│
+buyers
+---
+
+## 📊 Business Intelligence & Key Insights
+
+### 🏙️ Market & Pricing Analysis
+| Query | Business Question |
+|---|---|
+| Avg Price by City | Which cities command premium valuations? |
+| Price per Sqft by Type | Where is the best value per square foot? |
+| Price Bucket Distribution | How is inventory spread across price segments? |
+| Year Built vs Price | Do newer constructions command higher prices? |
+| City Rankings | Which markets are most expensive? |
+
+### 🏗️ Property Attribute Analysis
+| Query | Business Question |
+|---|---|
+| Furnishing Status Impact | How much does furnishing add to property value? |
+| Metro Distance vs Price | Does proximity to metro drive up prices? |
+| Bedrooms & Bathrooms | How do room counts affect pricing? |
+| Parking & Power Backup | What is the premium for key amenities? |
+| Rented vs Non-Rented | Do investment properties price differently? |
+
+### 📈 Sales & Market Dynamics
+| Query | Business Question |
+|---|---|
+| Monthly Sales Trend | When is the market most active? |
+| Days on Market by City | Which cities have the fastest moving inventory? |
+| Fastest Selling Property Types | Which property types sell quickest? |
+| Sale-to-List Price Ratio | Are properties selling above or below asking? |
+| % Sold Above List Price | How competitive is bidding in each city? |
+| Listings > 90 Days | Which properties are struggling to sell? |
+| Metro Distance vs Time on Market | Does location speed up or slow down sales? |
+| Currently Unsold Properties | What inventory is still active? |
+
+### 👤 Agent Performance Analysis
+| Query | Business Question |
+|---|---|
+| Most Deals Closed | Who are the top performing agents? |
+| Highest Revenue Agents | Which agents generate the most sales value? |
+| Fastest Closing Agents | Who closes deals most efficiently? |
+| Experience vs Deals Closed | Does seniority drive better results? |
+| Rating vs Closing Speed | Do higher rated agents close faster? |
+| Commission Earned per Agent | What is each agent's estimated earnings? |
+| Most Active Listings | Which agents have the most unsold inventory? |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| Data Storage | MySQL 8.0 | Relational database for all 5 tables |
+| Data Processing | Python 3.8+ | ETL pipeline, data cleaning, query execution |
+| Data Manipulation | Pandas | DataFrame operations and transformations |
+| Dashboard | Streamlit | Interactive web application |
+| Visualizations | Plotly | Interactive charts and graphs |
+| Mapping | Folium + streamlit-folium | Interactive property location maps |
+| DB Connector | mysql-connector-python | Python to MySQL bridge |
+
+---
+
+## 📁 Project Structure
+real-estate-intelligence/
+
+│
+├── data
+│   ├── agents_cleaned.json
+│   ├── buyers_cleaned.json
+│   ├── listings_final_expanded.json
+│   ├── property_attributes_final_expanded.json
+│   └── sales_cleaned.csv
+│
+├── database/
+│   ├── insert_agents.py
+│   ├── insert_buyers.py
+│   ├── insert_listings.py
+│   ├── insert_property_attributes.py
+│   ├── insert_sales.sql
+│   └── schema.sql
+│
+├── app.py                  # Main Streamlit application
+├── requirements.txt        # Python dependencies
+└── README.md
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/real-estate-intelligence.git
+cd real-estate-intelligence
+```
+
+### 2. Install Dependencies
+```bash
+pip install streamlit plotly pandas mysql-connector-python folium streamlit-folium
+```
+
+### 3. Configure MySQL
+```python
+# Update connection details in app.py
+con = mysql.connector.connect(
+    host     = "localhost",
+    user     = "your_username",
+    password = "your_password",
+    database = "real_estate"
+)
+```
+
+### 4. Load Data into MySQL
+```bash
+# Run each insert script in order
+python database/insert_agents.py
+python database/insert_buyers.py
+python database/insert_listings.py
+python database/insert_property_attributes.py
+
+# For sales — run insert_sales.sql directly in MySQL Workbench
+# File → Open SQL Script → insert_sales.sql → Run
+```
+
+### 5. Launch the App
+```bash
+streamlit run app.py
+```
+
+---
+
+## 🖥️ Application Pages
+
+### 🏠 Home
+- 8 KPI metrics — total listings, sales, agents, buyers, avg price, avg sale price, avg days on market
+- Recent listings and recent sales preview tables
+
+### 🎛️ Filters & Data Explorer
+- Multi-select city filter
+- Property type dropdown
+- Price range slider
+- Agent searchable dropdown
+- Date range picker for listing date
+- Downloadable filtered results as CSV
+
+### 📈 Visualizations
+- **Map Tab** — Interactive Folium map with color-coded property markers by type
+- **Bar Charts** — Avg price by city, listings by city, price by property type, top agents by deals
+- **Pie Charts** — Property type distribution, buyer type, payment mode, furnishing status
+- **Line Charts** — Monthly sales trend, avg sale price trend, avg days on market trend, monthly revenue
+- **Table View** — Paginated and sortable view of all 5 database tables
+
+### 🛠️ CRUD Operations
+Full **Create, Read, Update, Delete** support for all 5 tables:
+- `agents` — manage agent profiles and performance metrics
+- `listings` — add, edit or remove property listings
+- `sales` — record and manage closed transactions
+- `buyers` — maintain buyer profiles and loan details
+- `property_attributes` — update property features and amenities
+
+### 🔍 SQL Queries Explorer
+- 25 business intelligence queries in dropdown format
+- Live SQL code display for each query
+- Results rendered as interactive sortable tables
+- One-click CSV download for every query result
+
+---
+
+## 📈 Sample Business Insights
+
+> Based on the analytical queries built into this platform, here are the types of insights
+> real estate professionals can extract:
+
+- 🏙️ **City Pricing** — Identify which cities have the highest avg listing prices to guide investment decisions
+- ⚡ **Market Speed** — Discover which property types and cities have the fastest turnaround to optimize listing strategy
+- 🤝 **Agent ROI** — Evaluate agent performance by deals closed, revenue generated and commission earned
+- 🏗️ **Amenity Premium** — Quantify exactly how much parking, power backup and metro proximity add to property value
+- 📅 **Seasonality** — Track monthly sales trends to time listings for maximum market activity
+- 💰 **Pricing Strategy** — Use sale-to-list ratios to set competitive asking prices in each market
+- 🔍 **Stale Inventory** — Identify listings sitting unsold for 90+ days to trigger repricing or remarketing
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!
+
+1. Fork the repository
+2. Create your feature branch `git checkout -b feature/AmazingFeature`
+3. Commit your changes `git commit -m 'Add some AmazingFeature'`
+4. Push to the branch `git push origin feature/AmazingFeature`
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+## 👨‍💻 Author
+
+Built with ❤️ for real estate data analytics.
+Turning property data into business intelligence — one query at a time.
+
+---
+
+*If you found this project useful, please consider giving it a ⭐ on GitHub!*
